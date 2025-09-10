@@ -3,7 +3,12 @@ const Task = require('../models/task');
 const getAllTasks = async (req,res)=>{
     try{
     const task = await Task.find({});
-    res.status(200).json({task});
+   // res.status(200).json({task});
+        //res.status(200).json({task, amount:task.length});
+            res.status(200)
+            .json({status:'success',data:{task,nbHits:task.length}});
+
+
     }catch(error){
         res.status(500).json({msg: error});
     }
@@ -17,7 +22,6 @@ const createTask = async (req,res)=>{
         res.status(500).json({msg:error});
     }
 }
-
 const getOneTask = async (req,res)=>{
     try{
         const {id:taskID} = req.params;
@@ -56,6 +60,8 @@ const deleteTask = async (req,res)=>{
     }catch(error){
         res.status(500).json({msg:error});
     }
+
+
 }
 
 module.exports={
